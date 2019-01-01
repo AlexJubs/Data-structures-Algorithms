@@ -1,2 +1,2 @@
 # Data-structures-Algorithms
-Collection of Data structures &amp; Algorithms projects 
+A collection of my projects in Data structures &amp; Algorithms. 
