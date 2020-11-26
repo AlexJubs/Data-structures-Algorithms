@@ -1,0 +1,22 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        if k == 1: return head
+        pointers = list()
+        res = head
+        while (head != None):
+            pointers.append(head)
+            head = head.next
+        for i in range(0,len(pointers),k):
+            p1 = i
+            p2 = i+k-1
+            if i+k > len(pointers): break
+            while (p1 < p2):
+                pointers[p1].val, pointers[p2].val = pointers[p2].val, pointers[p1].val
+                p1 += 1
+                p2 -= 1
+        return res
