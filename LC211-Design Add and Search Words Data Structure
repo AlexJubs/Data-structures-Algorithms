@@ -1,0 +1,47 @@
+class trie:
+    def __init__(self, val):
+        self.val = val
+        self.children = dict()
+        self.endofword = False
+
+class WordDictionary(trie):
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.words = trie("root")
+
+    def add_letter(self, node, word, p1):
+        if p1 >= len(word):
+            node.endofword = True
+            return
+        if word[p1] in node.children:
+            self.add_letter(node.children[word[p1]], word, p1+1)
+        else:
+            node.children[word[p1]] = trie(word[p1])
+            self.add_letter(node.children[word[p1]], word, p1+1)
+        
+    def search_letter(self, node, word, p1):
+        if p1 >= len(word):
+            return node.endofword
+        if word[p1] in node.children:
+            return self.search_letter(node.children[word[p1]], word, p1+1)
+        if word[p1] == '.':
+            ret = False
+            for child in node.children.keys():
+                ret = ret or self.search_letter(node.children[child], word, p1+1)
+            return ret
+        else: return False
+    
+    def addWord(self, word: str) -> None:
+        self.add_letter(self.words, word, 0)
+        
+    def search(self, word: str) -> bool:
+        return self.search_letter(self.words, word, 0)
+
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
